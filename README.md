@@ -22,3 +22,48 @@ assembling democode.s...<br>
 linking...<br>
 Program Size: Code=16 RO-data=0 RW-data=0 ZI-data=0<br>
 "democode.axf" - 0 Error(s), 0 Warning(s).<br>
+Note:<br> 
+1.Ensure that only labels are touching the margin.<br>
+2.Since the code is LOADING and STORING data from memory, ensure that READONLY (RO) and READWRITE(R/W) areas of memory are not overlapping.Select Options for Target1 and in LINKER tab, the address Ranges of RO & R/W areas must not overlap<br>
+
+#step.c & lcd.c
+The C programs are written for use with LPC2148 ARM Based Microcontroller.<br>
+lcd.c is used to display characters on the lcd module display.<br>
+step.c is used to rotate the stepper motor clockwise and anticlockwise.<br>
+#Instructions:
+The program can be executed using Keil Software.<br>
+Steps for Execution:<br>
+1.	Create a project folder before creating NEW Project.<br>
+2.	Open Keil μVision IDE.<br>
+3.	Go to Project.Then New μVision Project & save it with a name in the respective project folder previously created.<br>
+4.	Select the device as NXP. In that LPC2148. Then click OK. Then click on YES Button to add startup.s file.<br>
+5.	Open startup file. Go to Configuration Wizard.<br>
+6.	In Configuration Wizard Window uncheck PLL Setup & check VPBDIV Setup.<br>
+7.	Go to File. In that New to open an editor window. Create your source file & use the header file lpc21xx.h in the source file & save the file. Colour Syntax Highlighting will be enabled once the file is saved with the extension such as “.C”. <br> 
+8.	Right Click on Source Group 1 and select Add Existing Files to Group Source Group 1 and add the *.C source file(s) to the group.<br>
+9.	After adding the source file you can see the file in Project Window. Then go to Project in that Translate to compile the File(s).<br>
+10.	Check the Build Output window.<br>
+11.	Right Click on Target1 and select options for Target Target1. Then go to option Target in that<br>
+a.	Xtal 12.0MHz<br>
+b.	Select Use MicroLIB<br>
+c.	Select IROM1(starting 0x0 size 0x80000)<br>
+d.	Select IRAM1(starting 0x40000000 size 0x8000)<br>
+e.	Then go to option Output & select Create Hex File<br>
+f.	Then go to option Linker & select Use Memory Layout from Target Dialog<br>
+12.	Click OK.<br>
+13.	Go to Project in that Build Target. For building all source files such as .C, .ASM, .H files etc. This will create the *.HEX file if no warnings & no errors. Check the Build Output Window.<br>
+14.	Connect the serial cross cable from DB2 to the PC COM port. Push both SW3 1 &2 to ON position. JP1 should be shorted while using ISP programming. Connect DC +5V power through DB1 applied from an external source. Switch ON the power. Open JP6 while downloading the software.<br>
+15.	In Flash Magic, Go to Options then go to Advanced Options. Then choose Hardware Config. Enable these options only:<br>
+•	Use DTR and RTS to control RST and ISP Pin<br>
+•	Keep RTS asserted while COM port open. Click OK then do the following Settings<br>
+Step 1: (Communications):<br>
+•	Device: LPC2148<br>
+•	COM Port: COM1(Check & Connect)<br>
+•	Baud Rate: 9600(may vary with systems)<br>
+•	Interface: None (ISP)<br>
+•	Oscillator:12 MHz<br>
+ 	Step 2: (ERASE): Select Erase Blocks used by Hex File.<br>
+	Step 3: (Hex File): Browse & Select the Hex file which you want to download.<br>
+	Step 4: (Options): Select Verify after Programming.<br>
+	Step 5: (Start): Click Start to download the hex file to the controller.<br>
+The program should now execute on the LPC2148 kit
